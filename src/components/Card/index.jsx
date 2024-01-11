@@ -1,19 +1,15 @@
 import { Link } from "react-router-dom";
 
-export default function Card() {
+export default function Card({ image, title, id }) {
   return (
     <div className="card max-w-96 bg-base-100 shadow-xl">
-      <figure>
-        <img
-          src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-          alt="Shoes"
-        />
+      <figure className="max-h-48">
+        <img className="object-cover h-full w-full" src={image} alt="Shoes" />
       </figure>
       <div className="card-body">
-        <h2 className="card-title">Shoes!</h2>
-        <p>If a dog chews shoes whose shoes does he choose?</p>
+        <h2 className="card-title">{title}</h2>
         <div className="card-actions mt-4">
-          <Link className="bg-[#0D1130] text-white w-full text-center py-2 ">
+          <Link className="bg-[#0D1130] text-white w-full text-center py-2 border rounded-2xl">
             Book now
           </Link>
         </div>
