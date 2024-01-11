@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Card from "../../components/Card";
+import Loading from "../../components/Loading";
 import { useState, useEffect } from "react";
 
 const url = "https://api.noroff.dev/api/v1/holidaze/venues";
@@ -43,19 +44,27 @@ export default function Home() {
           <Link className="btn">Register</Link>
         </div>
       </section>
-      <section className="py-24 px-4">
-        <div className="gap-4 grid mx-auto justify-center lg:grid-cols-3 md:grid-cols-2 max-w-7xl">
-          {venues.map((venue) => (
-            <Card
-              image={venue.media[0]}
-              title={venue.name}
-              intro={venue.description}
-              key={venue.id}
-              id={venue.id}
-            />
-          ))}
+      {isLoading ? (
+        <div>
+          <Loading />
         </div>
-      </section>
+      ) : isError ? (
+        <div>{errorMessage} Error fetching data. Please try again later.</div>
+      ) : (
+        <section className="py-24 px-4">
+          <div className="gap-4 grid mx-auto justify-center lg:grid-cols-3 md:grid-cols-2 max-w-7xl">
+            {venues.map((venue) => (
+              <Card
+                image={venue.media[0]}
+                title={venue.name}
+                intro={venue.description}
+                key={venue.id}
+                id={venue.id}
+              />
+            ))}
+          </div>
+        </section>
+      )}
     </>
   );
 }
