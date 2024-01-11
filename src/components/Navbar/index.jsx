@@ -1,13 +1,17 @@
+import { Link } from "react-router-dom";
+
 export default function Navbar() {
   return (
     <nav className="navbar bg-base-100">
       <div className="flex-1">
-        <a className="btn btn-ghost text-xl">Booking</a>
+        <Link to={"/"} className="btn btn-ghost text-xl">
+          Booking
+        </Link>
       </div>
       <div className="flex-none">
         <ul className="menu menu-horizontal px-1">
           <li>
-            <a>Link</a>
+            <a>Login</a>
           </li>
           <li>
             <details>
