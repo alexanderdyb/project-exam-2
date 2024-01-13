@@ -24,7 +24,7 @@ export default function Home() {
         </div>
       </section>
       {isLoading ? (
-        <div>
+        <div className="mx-auto text-center pt-12">
           <Loading />
         </div>
       ) : isError ? (
