@@ -1,38 +1,17 @@
 import { Link } from "react-router-dom";
 import Card from "../../components/Card";
 import Loading from "../../components/Loading";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import { store } from "../../store";
 
 const url = "https://api.noroff.dev/api/v1/holidaze/venues";
 
 export default function Home() {
-  const [venues, setVenues] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const { venues, isLoading, isError, errorMessage, fetchVenues } = store();
 
   useEffect(() => {
-    async function getVenues() {
-      try {
-        setIsError(false);
-        setIsLoading(true);
-
-        const response = await fetch(url);
-        if (!response.ok) {
-          throw new Error(response.status);
-        }
-        const json = await response.json();
-        setVenues(json);
-
-        setIsLoading(false);
-      } catch (error) {
-        setIsLoading(false);
-        setIsError(true);
-        setErrorMessage(error.message);
-      }
-    }
-    getVenues();
-  }, []);
+    fetchVenues(url);
+  }, [fetchVenues]);
 
   console.log(venues);
 
@@ -57,7 +36,8 @@ export default function Home() {
               <Card
                 image={venue.media[0]}
                 title={venue.name}
-                intro={venue.description}
+                meta={venue.meta}
+                price={venue.price}
                 key={venue.id}
                 id={venue.id}
               />
