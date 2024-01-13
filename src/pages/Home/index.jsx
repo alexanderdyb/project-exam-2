@@ -3,6 +3,7 @@ import Card from "../../components/Card";
 import Loading from "../../components/Loading";
 import { useEffect } from "react";
 import { store } from "../../store";
+import Hero from "../../components/Hero";
 
 const url = "https://api.noroff.dev/api/v1/holidaze/venues";
 
@@ -17,12 +18,12 @@ export default function Home() {
 
   return (
     <>
-      <section className="bg-[#E9E9E9] px-4 py-24">
-        <h1 className="text-center">Book venue now</h1>
-        <div className="text-center py-12">
-          <Link className="btn">Register</Link>
-        </div>
-      </section>
+      <Hero
+        image="/heroImage2.webp"
+        title="Where Every Stay is a Story"
+        link="/register"
+        buttonName="Register Now"
+      />
       {isLoading ? (
         <div className="mx-auto text-center pt-12">
           <Loading />

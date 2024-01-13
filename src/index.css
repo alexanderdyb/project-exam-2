@@ -3,10 +3,23 @@
 @tailwind utilities;
 
 @layer base {
+  body {
+    @apply font-sans;
+  }
   h1 {
     @apply text-4xl;
+    @apply font-raleway;
   }
   h2 {
+    @apply text-3xl;
+  }
+  h3 {
+    @apply text-2xl;
+  }
+  h4 {
     @apply text-xl;
+  }
+  p {
+    @apply text-base;
   }
 }

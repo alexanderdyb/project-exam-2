@@ -1,6 +1,7 @@
 import { create } from "zustand";
 
 export const store = create((set) => ({
+  // Get venues
   venues: [],
   isLoading: false,
   isError: false,
@@ -21,4 +22,6 @@ export const store = create((set) => ({
       set({ isLoading: false });
     }
   },
+  // User logged in/out
+  isLoggedIn: false,
 }));
