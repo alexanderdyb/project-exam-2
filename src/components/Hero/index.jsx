@@ -11,7 +11,7 @@ export default function Hero({ image, title, link, buttonName }) {
         color: "#fff", // Optional: change text color for better readability on the image
       }}
     >
-      <h1 className="text-center font-bold">{title}</h1>
+      <h1 className="text-center">{title}</h1>
       <div className="text-center py-12">
         <Link to={link} className="btn">
           {buttonName}

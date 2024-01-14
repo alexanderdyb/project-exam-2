@@ -23,7 +23,7 @@ export default function Card({ image, title, id, meta, price }) {
           <div className="card-actions justify-end mb-2">
             {meta.breakfast && <Tag title="Breakfast" />}
             {meta.parking && <Tag title="Parking" />}
-            {meta.pets && <Tag title="Pets allowed" />}
+            {meta.pets && <Tag title="Pets" />}
             {meta.wifi && <Tag title="Wifi" />}
           </div>
           <Link

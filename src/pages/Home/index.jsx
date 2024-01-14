@@ -1,11 +1,10 @@
-import { Link } from "react-router-dom";
 import Card from "../../components/Card";
 import Loading from "../../components/Loading";
 import { useEffect } from "react";
 import { store } from "../../store";
 import Hero from "../../components/Hero";
 
-const url = "https://api.noroff.dev/api/v1/holidaze/venues";
+const url = `https://api.noroff.dev/api/v1/holidaze/venues?limit=12?offset=0`;
 
 export default function Home() {
   const { venues, isLoading, isError, errorMessage, fetchVenues } = store();
