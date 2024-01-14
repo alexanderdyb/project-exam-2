@@ -20,7 +20,7 @@ export default function Home() {
       <Hero
         image="/heroImage2.webp"
         title="Where Every Stay is a Story"
-        link="/register"
+        link="/"
         buttonName="Register Now"
       />
       {isLoading ? (

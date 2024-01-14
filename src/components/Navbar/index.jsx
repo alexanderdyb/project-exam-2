@@ -13,7 +13,7 @@ export default function Navbar() {
       <div className="flex-none">
         <ul className="menu menu-horizontal px-1">
           <li>
-            <a>Login</a>
+            <Link to="/">Login</Link>
           </li>
           {isLoggedIn && (
             <li>
@@ -21,10 +21,10 @@ export default function Navbar() {
                 <summary>Parent</summary>
                 <ul className="p-2 bg-base-100 rounded-t-none">
                   <li>
-                    <a>Link 1</a>
+                    <Link to="/">Link 1</Link>
                   </li>
                   <li>
-                    <a>Link 2</a>
+                    <Link to="/">Link 2</Link>
                   </li>
                 </ul>
               </details>
