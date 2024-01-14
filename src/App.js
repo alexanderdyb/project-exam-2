@@ -1,9 +1,19 @@
-function App() {
+import { Routes, Route } from "react-router-dom";
+import Layout from "./Layout";
+import Home from "./pages/Home";
+import RouteNotFound from "./pages/RouteNotFound";
+import VenueDetails from "./pages/VenueDetails";
+
+export default function App() {
   return (
     <div>
-      <h1 className="underline bg-slate-500">Hello World!!!</h1>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="venue/:id" element={<VenueDetails />} />
+          <Route path="*" element={<RouteNotFound />} />
+        </Route>
+      </Routes>
     </div>
   );
 }
-
-export default App;

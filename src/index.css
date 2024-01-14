@@ -1,3 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-sans;
+    @apply text-[#161616];
+  }
+  h1 {
+    @apply text-4xl;
+    @apply font-raleway;
+    @apply font-bold;
+  }
+  h2 {
+    @apply text-3xl;
+    @apply font-semibold;
+  }
+  h3 {
+    @apply text-2xl;
+  }
+  h4 {
+    @apply text-xl;
+  }
+  p {
+    @apply text-base;
+  }
+}
