@@ -3,9 +3,9 @@ import { useState, useEffect } from "react";
 
 export default function VenueDetails() {
   const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  // const [isLoading, setIsLoading] = useState(false);
+  // const [isError, setIsError] = useState(false);
+  // const [errorMessage, setErrorMessage] = useState("");
   let { id } = useParams();
 
   useEffect(() => {
