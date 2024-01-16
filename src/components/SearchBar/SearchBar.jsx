@@ -55,7 +55,9 @@ export default function SearchBar() {
     <div className="relative w-full max-w-xs">
       <label className="form-control">
         <div className="label">
-          <span className="label-text font-bold">Search by title</span>
+          <span className="label-text font-bold text-[#161616]">
+            Search by title
+          </span>
         </div>
         <input
           type="text"
@@ -86,7 +88,7 @@ export default function SearchBar() {
                     />
                   )}
                 </div>
-                <Link to={`/venue/${value.id}`}>
+                <Link to={`/venue/${value.id}`} className="text-left">
                   <p className="text-sm font-bold">{value.name}</p>
                   <p className="text-sm">{value.price} NOK per night</p>
                 </Link>
