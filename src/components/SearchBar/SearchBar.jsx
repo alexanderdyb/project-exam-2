@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 
 export default function SearchBar() {
   const [searchWord, setSearchWord] = useState("");
-  const [searchError, setSearchError] = useState(false);
-  const [searchErrorMessage, setSearchErrorMessage] = useState("");
+  // const [searchError, setSearchError] = useState(false);
+  // const [searchErrorMessage, setSearchErrorMessage] = useState("");
   const [searchVenues, setSearchVenues] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
 
@@ -24,7 +24,7 @@ export default function SearchBar() {
   useEffect(() => {
     async function getData() {
       try {
-        setSearchError(false);
+        // setSearchError(false);
 
         const response = await fetch(
           "https://api.noroff.dev/api/v1/holidaze/venues"
@@ -35,8 +35,8 @@ export default function SearchBar() {
         const json = await response.json();
         setSearchVenues(json);
       } catch (error) {
-        setSearchError(true);
-        setSearchErrorMessage(error.message);
+        // setSearchError(true);
+        // setSearchErrorMessage(error.message);
       }
     }
     if (searchWord) {
