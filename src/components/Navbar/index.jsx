@@ -4,7 +4,7 @@ import { store } from "../../store";
 export default function Navbar() {
   const { isLoggedIn } = store();
   return (
-    <nav className="navbar bg-base-100">
+    <nav className="navbar bg-white">
       <div className="flex-1">
         <Link to={"/"} className="btn btn-ghost text-xl">
           <img src="/logo.png" alt="logo" height="120" width="120" />

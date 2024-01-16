@@ -16,7 +16,7 @@ export default function Card({ image, title, id, meta, price }) {
           />
         )}
       </figure>
-      <div className="card-body">
+      <div className="card-body bg-white">
         <h2 className="card-title">{title}</h2>
         <PriceTag price={price} />
         <div className="card-actions mt-2">

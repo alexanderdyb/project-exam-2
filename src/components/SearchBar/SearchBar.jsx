@@ -60,7 +60,7 @@ export default function SearchBar() {
         <input
           type="text"
           placeholder="E.g., 'Wooden cabin'"
-          className="input input-bordered w-full max-w-xs"
+          className="input input-bordered w-full max-w-xs bg-white"
           onChange={handleFilter}
         />
       </label>

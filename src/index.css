@@ -6,7 +6,7 @@
   body {
     @apply font-sans;
     @apply text-[#161616];
-    background-color: #fff !important;
+    background-color: #fff;
   }
   h1 {
     @apply text-4xl;
