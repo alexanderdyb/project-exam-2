@@ -3,10 +3,11 @@
 @tailwind utilities;
 
 @layer base {
-  /* body {
+  body {
     @apply font-sans;
     @apply text-[#161616];
-  } */
+    background-color: #fff !important;
+  }
   h1 {
     @apply text-4xl;
     @apply font-raleway;
