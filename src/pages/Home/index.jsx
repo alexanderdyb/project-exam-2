@@ -6,7 +6,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import Hero from "../../components/Hero";
 import Message from "../../components/Message";
 import Section from "../../components/Section";
-import SearchBar from "../../components/SearchBar/SearchBar";
+// import SearchBar from "../../components/SearchBar/SearchBar";
 
 export default function Home() {
   const { venues, isLoading, isError, errorMessage, fetchVenues } = store();
@@ -38,7 +38,7 @@ export default function Home() {
         buttonName="Register Now"
       />
       <div className="max-w-7xl mx-auto pt-12 px-4 text-center md:text-left mb-[-30px]">
-        <SearchBar />
+        {/* <SearchBar /> */}
       </div>
       <InfiniteScroll
         dataLength={venues.length}
