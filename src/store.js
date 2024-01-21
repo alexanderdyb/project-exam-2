@@ -5,27 +5,17 @@ export const store = create((set, get) => ({
   isLoading: false,
   isError: false,
   errorMessage: "",
-  isInitialLoad: true,
 
-  fetchVenues: async (url, callback) => {
-    if (get().isInitialLoad) {
-      set({ isLoading: true });
-    }
+  fetchVenues: async (url) => {
     try {
+      set({ isLoading: true });
       const response = await fetch(url);
       if (!response.ok) {
         throw new Error(response.status);
       }
       const json = await response.json();
 
-      const currentVenues = get().venues;
-
-      set({ venues: [...currentVenues, ...json] });
-
-      if (callback) {
-        callback(json.length);
-      }
-      set({ isInitialLoad: false });
+      set({ venues: json });
     } catch (error) {
       set({ isError: true, errorMessage: error.message });
     } finally {
