@@ -2,6 +2,7 @@ import { create } from "zustand";
 
 export const store = create((set, get) => ({
   venues: [],
+  searchVenues: [],
   isLoading: false,
   isError: false,
   errorMessage: "",
@@ -16,6 +17,7 @@ export const store = create((set, get) => ({
       const json = await response.json();
 
       set({ venues: json });
+      set({ searchVenues: json });
     } catch (error) {
       set({ isError: true, errorMessage: error.message });
     } finally {

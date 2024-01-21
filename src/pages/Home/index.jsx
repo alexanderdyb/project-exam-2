@@ -9,11 +9,10 @@ import SearchBar from "../../components/SearchBar/SearchBar";
 
 export default function Home() {
   const { venues, isLoading, isError, errorMessage, fetchVenues } = store();
+  const url = process.env.REACT_APP_BASE_URL;
 
   useEffect(() => {
-    fetchVenues(
-      `https://api.noroff.dev/api/v1/holidaze/venues?limit=10&offset=0`
-    );
+    fetchVenues(url);
   }, []);
 
   return (

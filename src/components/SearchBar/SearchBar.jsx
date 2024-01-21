@@ -1,48 +1,16 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { store } from "../../store";
 
 export default function SearchBar() {
+  const { searchVenues } = store();
   const [searchWord, setSearchWord] = useState("");
-  // const [searchError, setSearchError] = useState(false);
-  // const [searchErrorMessage, setSearchErrorMessage] = useState("");
-  const [searchVenues, setSearchVenues] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
-
-  const typingTimeoutRef = useRef(null);
 
   const handleFilter = (event) => {
     const newSearchWord = event.target.value;
-
-    if (typingTimeoutRef.current) {
-      clearTimeout(typingTimeoutRef.current);
-    }
-    typingTimeoutRef.current = setTimeout(() => {
-      setSearchWord(newSearchWord);
-    }, 1000);
+    setSearchWord(newSearchWord);
   };
-
-  useEffect(() => {
-    async function getData() {
-      try {
-        // setSearchError(false);
-
-        const response = await fetch(
-          "https://api.noroff.dev/api/v1/holidaze/venues"
-        );
-        if (!response.ok) {
-          throw new Error(response.status);
-        }
-        const json = await response.json();
-        setSearchVenues(json);
-      } catch (error) {
-        // setSearchError(true);
-        // setSearchErrorMessage(error.message);
-      }
-    }
-    if (searchWord) {
-      getData();
-    }
-  }, [searchWord]);
 
   useEffect(() => {
     const newFilteredData = searchVenues.filter((venue) =>
@@ -71,7 +39,7 @@ export default function SearchBar() {
           {filteredData.length === 0 ? (
             <p>No results</p>
           ) : (
-            filteredData.map((value, key) => (
+            filteredData.map((value) => (
               <div key={value.id} className="flex flex-row items-center gap-4">
                 <div className="h-12 w-12">
                   {value.media[0] ? (
