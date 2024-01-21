@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { store } from "../../store";
 
 export default function SearchBar() {
-  const { searchVenues } = store();
+  const { venues } = store();
   const [searchWord, setSearchWord] = useState("");
   const [filteredData, setFilteredData] = useState([]);
 
@@ -13,11 +13,11 @@ export default function SearchBar() {
   };
 
   useEffect(() => {
-    const newFilteredData = searchVenues.filter((venue) =>
+    const newFilteredData = venues.filter((venue) =>
       venue.name.toLowerCase().includes(searchWord.toLowerCase())
     );
     setFilteredData(newFilteredData);
-  }, [searchWord, searchVenues]);
+  }, [searchWord, venues]);
 
   return (
     <div className="relative w-full max-w-xs">

@@ -13,7 +13,7 @@ export default function Home() {
 
   useEffect(() => {
     fetchVenues(url);
-  }, []);
+  }, [fetchVenues, url]);
 
   return (
     <>

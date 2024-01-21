@@ -1,42 +1,86 @@
-// import { useParams } from "react-router-dom";
-// import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import Loading from "../../components/Loading";
+import { useEffect } from "react";
+import { store } from "../../store";
+import Section from "../../components/Section";
+import Message from "../../components/Message";
+import PlaceIcon from "@mui/icons-material/Place";
+import LocalHotelIcon from "@mui/icons-material/LocalHotel";
+import PriceTag from "../../components/PriceTag";
 
 export default function VenueDetails() {
-  // const [data, setData] = useState([]);
-  // const [isLoading, setIsLoading] = useState(false);
-  // const [isError, setIsError] = useState(false);
-  // const [errorMessage, setErrorMessage] = useState("");
-  // let { id } = useParams();
+  let { id } = useParams();
+  const { venueDetails, isLoading, isError, errorMessage, fetchVenueDetails } =
+    store();
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+  const url = `${baseUrl}/${id}`;
 
-  // useEffect(() => {
-  //   async function getData(url) {
-  //     try {
-  //       setIsLoading(true);
-  //       setIsError(false);
+  useEffect(() => {
+    fetchVenueDetails(url);
+  }, [fetchVenueDetails, url]);
 
-  //       const response = await fetch(url);
-  //       if (!response.ok) {
-  //         throw new Error(response.status);
-  //       }
-  //       const json = await response.json();
-
-  //       setData(json);
-  //       setIsLoading(false);
-  //     } catch (error) {
-  //       setIsLoading(false);
-  //       setIsError(true);
-  //       setErrorMessage(error.message);
-  //     }
-  //   }
-
-  //   getData(`https://api.noroff.dev/api/v1/holidaze/venues/${id}`);
-  // }, [id]);
-
-  // console.log(data);
+  console.log(venueDetails);
 
   return (
-    <section>
-      <p>Detailspage</p>
-    </section>
+    <>
+      {isLoading ? (
+        <Section>
+          <div className="max-w-7xl mx-auto text-center">
+            <Loading />
+          </div>
+        </Section>
+      ) : isError ? (
+        <Section>
+          <div className="max-w-[500px] mx-auto">
+            <Message
+              text={`${errorMessage} Error fetching data. Please try again later.`}
+              type={"error"}
+            />
+          </div>
+        </Section>
+      ) : (
+        <Section>
+          <div className="grid grid-cols-1 gap-4 mx-auto max-w-[800px]">
+            {venueDetails &&
+            venueDetails.media &&
+            venueDetails.media.length > 0 ? (
+              venueDetails.media.map((image, index) => (
+                <div className="sm:max-h-[500px] max-h-[300px]" key={index}>
+                  <img
+                    src={image || "/noimage.webp"}
+                    alt={venueDetails.name}
+                    className="object-cover h-full w-full"
+                  />
+                </div>
+              ))
+            ) : (
+              <div className="sm:max-h-[500px] max-h-[300px]">
+                <img
+                  src="/noimage.webp"
+                  alt="No image available"
+                  className="object-cover h-full w-full"
+                />
+              </div>
+            )}
+            <div>
+              <h1 className="mb-4">{venueDetails.name}</h1>
+              <PriceTag price={venueDetails.price} />
+              <div className="flex gap-6 mt-4">
+                {venueDetails?.location?.city && (
+                  <div className="flex gap-2">
+                    <PlaceIcon />
+                    <p>{venueDetails.location.city}</p>
+                  </div>
+                )}
+                <div className="flex gap-2">
+                  <LocalHotelIcon />
+                  <p>Max {venueDetails.maxGuests} guests</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Section>
+      )}
+    </>
   );
 }
