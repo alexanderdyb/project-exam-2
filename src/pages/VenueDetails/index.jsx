@@ -4,7 +4,11 @@ import { useEffect } from "react";
 import { store } from "../../store";
 import Section from "../../components/Section";
 import Message from "../../components/Message";
-import PlaceIcon from "@mui/icons-material/Place";
+import WifiIcon from "@mui/icons-material/Wifi";
+import LocalParkingIcon from "@mui/icons-material/LocalParking";
+import RestaurantIcon from "@mui/icons-material/Restaurant";
+import PetsIcon from "@mui/icons-material/Pets";
+import StarIcon from "@mui/icons-material/Star";
 import LocalHotelIcon from "@mui/icons-material/LocalHotel";
 import PriceTag from "../../components/PriceTag";
 
@@ -39,47 +43,116 @@ export default function VenueDetails() {
           </div>
         </Section>
       ) : (
-        <Section>
-          <div className="grid grid-cols-1 gap-4 mx-auto max-w-[800px]">
-            {venueDetails &&
-            venueDetails.media &&
-            venueDetails.media.length > 0 ? (
-              venueDetails.media.map((image, index) => (
-                <div className="sm:max-h-[500px] max-h-[300px]" key={index}>
+        <>
+          <Section>
+            <div className="grid grid-cols-1 gap-4 mx-auto max-w-[800px]">
+              {venueDetails &&
+              venueDetails.media &&
+              venueDetails.media.length > 0 ? (
+                venueDetails.media.map((image, index) => (
+                  <div className="sm:max-h-[500px] max-h-[300px]" key={index}>
+                    <img
+                      src={image || "/noimage.webp"}
+                      alt={venueDetails.name}
+                      className="object-cover h-full w-full"
+                    />
+                  </div>
+                ))
+              ) : (
+                <div className="sm:max-h-[500px] max-h-[300px]">
                   <img
-                    src={image || "/noimage.webp"}
-                    alt={venueDetails.name}
+                    src="/noimage.webp"
+                    alt="No image available"
                     className="object-cover h-full w-full"
                   />
                 </div>
-              ))
-            ) : (
-              <div className="sm:max-h-[500px] max-h-[300px]">
-                <img
-                  src="/noimage.webp"
-                  alt="No image available"
-                  className="object-cover h-full w-full"
-                />
+              )}
+              <div className="pb-5">
+                <h1 className="mb-2">{venueDetails.name}</h1>
+                <div className="flex items-center gap-2">
+                  {venueDetails.rating !== 0 && (
+                    <div className="flex items-center ">
+                      <StarIcon />
+                      <p className="font-bold text-[18px]">{`${venueDetails.rating}/5`}</p>
+                    </div>
+                  )}
+                  {venueDetails.location &&
+                    venueDetails.location.city &&
+                    venueDetails.location.country && (
+                      <p>{`${venueDetails.location.city}, ${venueDetails.location.country}`}</p>
+                    )}
+                </div>
+                <div className="flex gap-6 mt-4">
+                  <PriceTag price={venueDetails.price} />
+                  <div className="flex gap-2 pb-4">
+                    <LocalHotelIcon />
+                    <p className="font-bold">{venueDetails.maxGuests} guests</p>
+                  </div>
+                </div>
+                <p className="mt-4">
+                  <span className="font-bold">Venue details:</span>{" "}
+                  {venueDetails.description}
+                </p>
               </div>
-            )}
-            <div>
-              <h1 className="mb-4">{venueDetails.name}</h1>
-              <PriceTag price={venueDetails.price} />
-              <div className="flex gap-6 mt-4">
-                {venueDetails?.location?.city && (
-                  <div className="flex gap-2">
-                    <PlaceIcon />
-                    <p>{venueDetails.location.city}</p>
+              <div className="border-t-2 py-8">
+                {venueDetails.meta && venueDetails.meta.wifi && (
+                  <div className="pb-4">
+                    <div className="flex items-center gap-2">
+                      <WifiIcon /> <p className="font-bold">Wifi</p>
+                    </div>
+                    <div>
+                      <p>
+                        Stay connected with our WiFi, available throughout the
+                        property for your convenience
+                      </p>
+                    </div>
                   </div>
                 )}
-                <div className="flex gap-2">
-                  <LocalHotelIcon />
-                  <p>Max {venueDetails.maxGuests} guests</p>
-                </div>
+                {venueDetails.meta && venueDetails.meta.parking && (
+                  <div className="pb-4">
+                    <div className="flex items-center gap-2">
+                      <LocalParkingIcon /> <p className="font-bold">Parking</p>
+                    </div>
+                    <div>
+                      <p>
+                        Enjoy the ease of on-site parking, providing secure and
+                        accessible space for your vehicle during your stay
+                      </p>
+                    </div>
+                  </div>
+                )}
+                {venueDetails.meta && venueDetails.meta.pets && (
+                  <div className="pb-4">
+                    <div className="flex items-center gap-2">
+                      <PetsIcon /> <p className="font-bold">Pets</p>
+                    </div>
+                    <div>
+                      <p>
+                        We're a pet-friendly destination, so bring along your
+                        furry friends to enjoy the vacation as much as you do
+                      </p>
+                    </div>
+                  </div>
+                )}
+                {venueDetails.meta && venueDetails.meta.breakfast && (
+                  <div className="pb-4">
+                    <div className="flex items-center gap-2">
+                      <RestaurantIcon /> <p className="font-bold">Breakfast</p>
+                    </div>
+                    <div>
+                      <p>We offer breakfast to our guests</p>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
-          </div>
-        </Section>
+          </Section>
+          <Section>
+            <div className="max-w-[800px]">
+              <h2 className="text-center mx-auto">Book your stay</h2>
+            </div>
+          </Section>
+        </>
       )}
     </>
   );
