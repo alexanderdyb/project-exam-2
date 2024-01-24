@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import Loading from "../../components/Loading";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { store } from "../../store";
 import Section from "../../components/Section";
 import Message from "../../components/Message";
@@ -11,6 +11,9 @@ import PetsIcon from "@mui/icons-material/Pets";
 import StarIcon from "@mui/icons-material/Star";
 import LocalHotelIcon from "@mui/icons-material/LocalHotel";
 import PriceTag from "../../components/PriceTag";
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function VenueDetails() {
   let { id } = useParams();
@@ -18,6 +21,7 @@ export default function VenueDetails() {
     store();
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const url = `${baseUrl}/${id}`;
+  const [startDate, setStartDate] = useState(new Date());
 
   useEffect(() => {
     fetchVenueDetails(url);
@@ -151,6 +155,10 @@ export default function VenueDetails() {
             <div className="max-w-[800px]">
               <h2 className="text-center mx-auto">Book your stay</h2>
             </div>
+            <DatePicker
+              selected={startDate}
+              onChange={(date) => setStartDate(date)}
+            />
           </Section>
         </>
       )}
