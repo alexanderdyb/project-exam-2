@@ -22,6 +22,7 @@ export default function Home() {
         title="Where Every Stay is a Story"
         link="/"
         buttonName="Register Now"
+        alt="Cabin out in the woods"
       />
       <div className="max-w-7xl mx-auto pt-12 px-4 text-center md:text-left mb-[-30px]">
         <SearchBar />
