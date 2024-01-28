@@ -13,7 +13,7 @@ export default function Hero({ image, title, link, buttonName }) {
     >
       <h1 className="text-center">{title}</h1>
       <div className="text-center py-12">
-        <Link to={link} className="btn bg-white text-[#161616]">
+        <Link to="/register" className="btn bg-white text-[#161616]">
           {buttonName}
         </Link>
       </div>
