@@ -66,7 +66,7 @@ export default function VenueDetails() {
                 <div className="sm:max-h-[500px] max-h-[300px]">
                   <img
                     src="/noimage.webp"
-                    alt="No image available"
+                    alt="Graphic that shows that there is no data"
                     className="object-cover h-full w-full"
                   />
                 </div>
