@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Input from "../../components/Form/Input";
-import Toogle from "../../components/Form/Toogle";
+import Toggle from "../../components/Form/Toggle";
 import Section from "../../components/Section";
 
 const schema = yup
@@ -89,7 +89,7 @@ export default function Register() {
             placeholder={"https://img.service.com/avatar.jpg"}
           />
           <p>{errors.avatar?.message}</p>
-          <Toogle
+          <Toggle
             name="venueManager"
             label="Register as Venue Manager"
             {...register("venueManager")}
