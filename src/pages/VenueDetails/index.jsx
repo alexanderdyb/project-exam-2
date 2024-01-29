@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 import Loading from "../../components/Loading";
-import { useState, useEffect } from "react";
-import { store } from "../../store";
+import { useState } from "react";
 import Section from "../../components/Section";
 import Message from "../../components/Message";
 import WifiIcon from "@mui/icons-material/Wifi";
@@ -12,22 +11,16 @@ import StarIcon from "@mui/icons-material/Star";
 import LocalHotelIcon from "@mui/icons-material/LocalHotel";
 import PriceTag from "../../components/PriceTag";
 import DatePicker from "react-datepicker";
+import useApi from "../../hooks/useApi";
 
 import "react-datepicker/dist/react-datepicker.css";
 
 export default function VenueDetails() {
   let { id } = useParams();
-  const { venueDetails, isLoading, isError, errorMessage, fetchVenueDetails } =
-    store();
   const baseUrl = process.env.REACT_APP_BASE_URL;
-  const url = `${baseUrl}/${id}`;
+  const url = `${baseUrl}/venues/${id}`;
+  const { data, isLoading, isError, errorMessage } = useApi(url);
   const [startDate, setStartDate] = useState(new Date());
-
-  useEffect(() => {
-    fetchVenueDetails(url);
-  }, [fetchVenueDetails, url]);
-
-  console.log(venueDetails);
 
   return (
     <>
@@ -50,14 +43,12 @@ export default function VenueDetails() {
         <>
           <Section>
             <div className="grid grid-cols-1 gap-4 mx-auto max-w-[800px]">
-              {venueDetails &&
-              venueDetails.media &&
-              venueDetails.media.length > 0 ? (
-                venueDetails.media.map((image, index) => (
+              {data && data.media && data.media.length > 0 ? (
+                data.media.map((image, index) => (
                   <div className="sm:max-h-[500px] max-h-[300px]" key={index}>
                     <img
                       src={image || "/noimage.webp"}
-                      alt={venueDetails.name}
+                      alt={data.name}
                       className="object-cover h-full w-full"
                     />
                   </div>
@@ -72,34 +63,34 @@ export default function VenueDetails() {
                 </div>
               )}
               <div className="pb-5">
-                <h1 className="mb-2">{venueDetails.name}</h1>
+                <h1 className="mb-2">{data.name}</h1>
                 <div className="flex items-center gap-2">
-                  {venueDetails.rating !== 0 && (
+                  {data.rating !== 0 && (
                     <div className="flex items-center ">
                       <StarIcon />
-                      <p className="font-bold text-[18px]">{`${venueDetails.rating}/5`}</p>
+                      <p className="font-bold text-[18px]">{`${data.rating}/5`}</p>
                     </div>
                   )}
-                  {venueDetails.location &&
-                    venueDetails.location.city &&
-                    venueDetails.location.country && (
-                      <p>{`${venueDetails.location.city}, ${venueDetails.location.country}`}</p>
+                  {data.location &&
+                    data.location.city &&
+                    data.location.country && (
+                      <p>{`${data.location.city}, ${data.location.country}`}</p>
                     )}
                 </div>
                 <div className="flex gap-6 mt-4">
-                  <PriceTag price={venueDetails.price} />
+                  <PriceTag price={data.price} />
                   <div className="flex gap-2 pb-4">
                     <LocalHotelIcon />
-                    <p className="font-bold">{venueDetails.maxGuests} guests</p>
+                    <p className="font-bold">{data.maxGuests} guests</p>
                   </div>
                 </div>
                 <p className="mt-4">
                   <span className="font-bold">Venue details:</span>{" "}
-                  {venueDetails.description}
+                  {data.description}
                 </p>
               </div>
               <div className="border-t-2 py-8">
-                {venueDetails.meta && venueDetails.meta.wifi && (
+                {data.meta && data.meta.wifi && (
                   <div className="pb-4">
                     <div className="flex items-center gap-2">
                       <WifiIcon /> <p className="font-bold">Wifi</p>
@@ -112,7 +103,7 @@ export default function VenueDetails() {
                     </div>
                   </div>
                 )}
-                {venueDetails.meta && venueDetails.meta.parking && (
+                {data.meta && data.meta.parking && (
                   <div className="pb-4">
                     <div className="flex items-center gap-2">
                       <LocalParkingIcon /> <p className="font-bold">Parking</p>
@@ -125,7 +116,7 @@ export default function VenueDetails() {
                     </div>
                   </div>
                 )}
-                {venueDetails.meta && venueDetails.meta.pets && (
+                {data.meta && data.meta.pets && (
                   <div className="pb-4">
                     <div className="flex items-center gap-2">
                       <PetsIcon /> <p className="font-bold">Pets</p>
@@ -138,7 +129,7 @@ export default function VenueDetails() {
                     </div>
                   </div>
                 )}
-                {venueDetails.meta && venueDetails.meta.breakfast && (
+                {data.meta && data.meta.breakfast && (
                   <div className="pb-4">
                     <div className="flex items-center gap-2">
                       <RestaurantIcon /> <p className="font-bold">Breakfast</p>

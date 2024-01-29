@@ -2,7 +2,6 @@ import { create } from "zustand";
 
 export const store = create((set, get) => ({
   venues: [],
-  venueDetails: [],
   isLoading: false,
   isError: false,
   errorMessage: "",
@@ -24,22 +23,6 @@ export const store = create((set, get) => ({
     }
   },
 
-  fetchVenueDetails: async (url) => {
-    try {
-      set({ isLoading: true });
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error(response.status);
-      }
-      const json = await response.json();
-
-      set({ venueDetails: json });
-    } catch (error) {
-      set({ isError: true, errorMessage: error.message });
-    } finally {
-      set({ isLoading: false });
-    }
-  },
   // User logged in/out
   isLoggedIn: false,
 }));
