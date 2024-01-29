@@ -1,17 +1,20 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Input from "../../components/Form/Input";
 import Toggle from "../../components/Form/Toggle";
 import Section from "../../components/Section";
+import usePostApi from "../../hooks/usePostApi";
+import Message from "../../components/Message";
+import Loading from "../../components/Loading";
 
 const schema = yup
   .object({
     name: yup
       .string()
       .min(3)
-      .max(10)
       .matches(
         /^[\w]+$/,
         "Name must not contain punctuation symbols apart from underscore (_)"
@@ -39,17 +42,26 @@ const schema = yup
   .required();
 
 export default function Register() {
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+  const [postData, setPostData] = useState(null);
   const {
     register,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
   });
 
+  const { isLoading, isError, errorMessage } = usePostApi(
+    `${baseUrl}/auth/register`,
+    postData
+  );
+
   const onSubmit = (data) => {
-    // Handle the form submission
     console.log(data);
+    setPostData(data);
+    reset();
   };
 
   return (
@@ -75,7 +87,7 @@ export default function Register() {
           <p>{errors.email?.message}</p>
           <Input
             name="password"
-            type="text"
+            type="password"
             {...register("password")}
             label={"Password"}
             placeholder={"Password"}
@@ -94,9 +106,20 @@ export default function Register() {
             label="Register as Venue Manager"
             {...register("venueManager")}
           />
-
-          <input type="submit" className="btn bg-white text-[#161616]" />
+          <button type="submit" className="btn bg-white text-[#161616]">
+            Register
+          </button>
         </form>
+        <div className="mt-4">
+          {isLoading && (
+            <div>
+              <Loading />
+            </div>
+          )}
+          {isError && (
+            <Message text={`Error: ${errorMessage}.`} type={"error"} />
+          )}
+        </div>
       </div>
     </Section>
   );
