@@ -107,7 +107,7 @@ export default function Register() {
             {...register("venueManager")}
           />
           <button type="submit" className="btn bg-white text-[#161616]">
-            Register
+            Submit
           </button>
         </form>
         <div className="mt-4">
