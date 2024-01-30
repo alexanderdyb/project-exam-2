@@ -5,6 +5,7 @@ export const store = create((set, get) => ({
   isLoading: false,
   isError: false,
   errorMessage: "",
+  isLoggedIn: false,
 
   fetchVenues: async (url) => {
     try {
@@ -24,5 +25,5 @@ export const store = create((set, get) => ({
   },
 
   // User logged in/out
-  isLoggedIn: false,
+  setLoggedIn: (loggedIn) => set({ isLoggedIn: loggedIn }),
 }));

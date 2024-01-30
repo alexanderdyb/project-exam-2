@@ -5,6 +5,7 @@ export default function usePostApi(url, body, token = null) {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [isSuccess, setIsSuccess] = useState(false);
 
   useEffect(() => {
     async function postData() {
@@ -12,6 +13,7 @@ export default function usePostApi(url, body, token = null) {
         setIsLoading(true);
         setIsError(false);
         setErrorMessage("");
+        setIsSuccess(false);
 
         const headers = {
           "Content-Type": "application/json",
@@ -24,10 +26,9 @@ export default function usePostApi(url, body, token = null) {
           body: JSON.stringify(body),
         });
 
-        const responseData = await response.json(); // Parse the response as JSON
+        const responseData = await response.json();
 
         if (!response.ok) {
-          // More robust error checking
           if (
             responseData &&
             Array.isArray(responseData.errors) &&
@@ -45,6 +46,7 @@ export default function usePostApi(url, body, token = null) {
         }
 
         setData(responseData);
+        setIsSuccess(true);
       } catch (error) {
         console.error("Error:", error);
         setIsError(true);
@@ -59,5 +61,5 @@ export default function usePostApi(url, body, token = null) {
     }
   }, [url, body, token]);
 
-  return { data, isLoading, isError, errorMessage };
+  return { data, isLoading, isError, errorMessage, isSuccess };
 }

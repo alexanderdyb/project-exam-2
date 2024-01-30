@@ -12,19 +12,24 @@ export default function Navbar() {
       </div>
       <div className="flex-none">
         <ul className="menu menu-horizontal px-1">
-          <li>
-            <Link to="/login">Login</Link>
-          </li>
+          {!isLoggedIn && (
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
+          )}
           {isLoggedIn && (
             <li>
               <details>
-                <summary>Parent</summary>
+                <summary>My account</summary>
                 <ul className="p-2 bg-base-100 rounded-t-none">
                   <li>
-                    <Link to="/">Link 1</Link>
+                    <Link to="/">All venues</Link>
                   </li>
                   <li>
-                    <Link to="/">Link 2</Link>
+                    <Link to="/">Profile</Link>
+                  </li>
+                  <li>
+                    <Link to="/">Logout</Link>
                   </li>
                 </ul>
               </details>

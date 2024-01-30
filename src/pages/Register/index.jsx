@@ -9,6 +9,7 @@ import Section from "../../components/Section";
 import usePostApi from "../../hooks/usePostApi";
 import Message from "../../components/Message";
 import Loading from "../../components/Loading";
+import { Link } from "react-router-dom";
 
 const schema = yup
   .object({
@@ -53,7 +54,7 @@ export default function Register() {
     resolver: yupResolver(schema),
   });
 
-  const { isLoading, isError, errorMessage } = usePostApi(
+  const { isLoading, isError, errorMessage, isSuccess } = usePostApi(
     `${baseUrl}/auth/register`,
     postData
   );
@@ -118,6 +119,19 @@ export default function Register() {
           )}
           {isError && (
             <Message text={`Error: ${errorMessage}.`} type={"error"} />
+          )}
+          {isSuccess && (
+            <>
+              <Message
+                text={"Your registration was successful. Welcome aboard!"}
+                type={"success"}
+              />
+              <div className="text-center mt-4">
+                <Link to={"/login"} className="underline font-bold ">
+                  Login to your account
+                </Link>
+              </div>
+            </>
           )}
         </div>
       </div>
