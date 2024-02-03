@@ -5,10 +5,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Input from "../../components/Form/Input";
 import Section from "../../components/Section";
-import usePostApi from "../../hooks/usePostApi";
+import useAuth from "../../hooks/useAuth";
 import Message from "../../components/Message";
 import Loading from "../../components/Loading";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const schema = yup
   .object({
@@ -24,6 +24,7 @@ const schema = yup
 export default function Login() {
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const [postData, setPostData] = useState(null);
+  const navigate = useNavigate();
   const {
     register,
     reset,
@@ -33,7 +34,7 @@ export default function Login() {
     resolver: yupResolver(schema),
   });
 
-  const { isLoading, isError, errorMessage, isSuccess, data } = usePostApi(
+  const { isLoading, isError, errorMessage, isSuccess } = useAuth(
     `${baseUrl}/auth/login`,
     postData
   );
@@ -45,10 +46,10 @@ export default function Login() {
   };
 
   useEffect(() => {
-    if (isSuccess && data) {
-      localStorage.setItem("accessToken", data.accessToken);
+    if (isSuccess) {
+      navigate("/");
     }
-  }, [isSuccess, data]);
+  }, [isSuccess, navigate]);
 
   return (
     <Section background={"#f5f5f5"}>
@@ -83,19 +84,6 @@ export default function Login() {
           )}
           {isError && (
             <Message text={`Error: ${errorMessage}.`} type={"error"} />
-          )}
-          {isSuccess && (
-            <>
-              <Message
-                text={"Your registration was successful. Welcome aboard!"}
-                type={"success"}
-              />
-              <div className="text-center mt-4">
-                <Link to={"/login"} className="underline font-bold ">
-                  Login to your account
-                </Link>
-              </div>
-            </>
           )}
         </div>
       </div>
