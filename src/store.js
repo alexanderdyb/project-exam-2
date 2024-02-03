@@ -28,15 +28,15 @@ export const store = create((set, get) => ({
 
 export const useAuthStore = create(
   persist(
-    (set, get) => ({
+    (set) => ({
       isAuthenticated: false,
       venueManager: false,
       token: "",
       login: (token, venueManager) =>
         set({ isAuthenticated: true, token, venueManager: venueManager }),
       logout: () => {
-        set({ isAuthenticated: false, token: "" });
-        localStorage.removeItem("auth-storage");
+        set({ isAuthenticated: false, token: "", venueManager: false });
+        // localStorage.removeItem("auth-storage");
       },
     }),
     {

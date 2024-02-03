@@ -1,8 +1,24 @@
-import { Link } from "react-router-dom";
-import { store } from "../../store";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuthStore } from "../../store";
+import { useEffect, useState } from "react";
 
 export default function Navbar() {
-  const { isLoggedIn } = store();
+  const { isAuthenticated, logout } = useAuthStore();
+  const navigate = useNavigate();
+  const [logoutInitiated, setLogoutInitiated] = useState(false);
+
+  useEffect(() => {
+    if (!isAuthenticated && logoutInitiated) {
+      navigate("/");
+      setLogoutInitiated(false);
+    }
+  }, [isAuthenticated, navigate, logoutInitiated]);
+
+  function handleLogout() {
+    logout();
+    setLogoutInitiated(true);
+  }
+
   return (
     <nav className="navbar bg-white">
       <div className="flex-1">
@@ -12,12 +28,12 @@ export default function Navbar() {
       </div>
       <div className="flex-none">
         <ul className="menu menu-horizontal px-1">
-          {!isLoggedIn && (
+          {!isAuthenticated && (
             <li>
               <Link to="/login">Login</Link>
             </li>
           )}
-          {isLoggedIn && (
+          {isAuthenticated && (
             <li>
               <details>
                 <summary>My account</summary>
@@ -29,7 +45,11 @@ export default function Navbar() {
                     <Link to="/">Profile</Link>
                   </li>
                   <li>
-                    <Link to="/">Logout</Link>
+                    <Link>
+                      <button className="btn" onClick={handleLogout}>
+                        Logout
+                      </button>
+                    </Link>
                   </li>
                 </ul>
               </details>

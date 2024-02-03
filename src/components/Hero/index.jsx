@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
+import { useAuthStore } from "../../store";
 export default function Hero({ image, title, link, buttonName }) {
+  const { isAuthenticated } = useAuthStore();
   return (
     <section
       className="bg-[#E9E9E9] px-4 py-24"
@@ -12,11 +14,13 @@ export default function Hero({ image, title, link, buttonName }) {
       }}
     >
       <h1 className="text-center">{title}</h1>
-      <div className="text-center py-12">
-        <Link to="/register" className="btn bg-white text-[#161616]">
-          {buttonName}
-        </Link>
-      </div>
+      {!isAuthenticated && (
+        <div className="text-center py-12">
+          <Link to="/register" className="btn bg-white text-[#161616]">
+            {buttonName}
+          </Link>
+        </div>
+      )}
     </section>
   );
 }

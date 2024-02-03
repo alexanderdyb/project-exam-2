@@ -47,7 +47,6 @@ export default function useAuth(url, body, token = null) {
         }
         setIsSuccess(true);
         const { accessToken, venueManager } = responseData;
-
         login(accessToken, venueManager);
       } catch (error) {
         console.error("Error:", error);
