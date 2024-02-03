@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useAuthStore } from "../../store";
-export default function Hero({ image, title, link, buttonName }) {
+export default function Hero({ image, title, buttonName }) {
   const { isAuthenticated } = useAuthStore();
   return (
     <section
