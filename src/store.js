@@ -1,10 +1,12 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 export const store = create((set, get) => ({
   venues: [],
   isLoading: false,
   isError: false,
   errorMessage: "",
+  isLoggedIn: false,
 
   fetchVenues: async (url) => {
     try {
@@ -22,7 +24,23 @@ export const store = create((set, get) => ({
       set({ isLoading: false });
     }
   },
-
-  // User logged in/out
-  isLoggedIn: false,
 }));
+
+export const useAuthStore = create(
+  persist(
+    (set) => ({
+      isAuthenticated: false,
+      venueManager: false,
+      token: "",
+      login: (token, venueManager) =>
+        set({ isAuthenticated: true, token, venueManager: venueManager }),
+      logout: () => {
+        set({ isAuthenticated: false, token: "", venueManager: false });
+        // localStorage.removeItem("auth-storage");
+      },
+    }),
+    {
+      name: "auth-storage",
+    }
+  )
+);

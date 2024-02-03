@@ -142,7 +142,7 @@ export default function VenueDetails() {
               </div>
             </div>
           </Section>
-          <Section>
+          <Section background={"#f5f5f5"}>
             <div className="max-w-[800px]">
               <h2 className="text-center mx-auto">Book your stay</h2>
             </div>

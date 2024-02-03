@@ -1,8 +1,24 @@
-import { Link } from "react-router-dom";
-import { store } from "../../store";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuthStore } from "../../store";
+import { useEffect, useState } from "react";
 
 export default function Navbar() {
-  const { isLoggedIn } = store();
+  const { isAuthenticated, logout } = useAuthStore();
+  const navigate = useNavigate();
+  const [logoutInitiated, setLogoutInitiated] = useState(false);
+
+  useEffect(() => {
+    if (!isAuthenticated && logoutInitiated) {
+      navigate("/");
+      setLogoutInitiated(false);
+    }
+  }, [isAuthenticated, navigate, logoutInitiated]);
+
+  function handleLogout() {
+    logout();
+    setLogoutInitiated(true);
+  }
+
   return (
     <nav className="navbar bg-white">
       <div className="flex-1">
@@ -12,19 +28,28 @@ export default function Navbar() {
       </div>
       <div className="flex-none">
         <ul className="menu menu-horizontal px-1">
-          <li>
-            <Link to="/login">Login</Link>
-          </li>
-          {isLoggedIn && (
+          {!isAuthenticated && (
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
+          )}
+          {isAuthenticated && (
             <li>
               <details>
-                <summary>Parent</summary>
+                <summary>My account</summary>
                 <ul className="p-2 bg-base-100 rounded-t-none">
                   <li>
-                    <Link to="/">Link 1</Link>
+                    <Link to="/">All venues</Link>
                   </li>
                   <li>
-                    <Link to="/">Link 2</Link>
+                    <Link to="/">Profile</Link>
+                  </li>
+                  <li>
+                    <Link>
+                      <button className="btn" onClick={handleLogout}>
+                        Logout
+                      </button>
+                    </Link>
                   </li>
                 </ul>
               </details>
