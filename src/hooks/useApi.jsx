@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export default function useApi(url) {
+export default function useApi(url, token = null, body) {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -11,7 +11,19 @@ export default function useApi(url) {
       try {
         setIsLoading(true);
         setIsError(false);
-        const response = await fetch(url);
+        setErrorMessage("");
+
+        const headers = {
+          "Content-Type": "application/json",
+          ...(token && { Authorization: `Bearer ${token}` }),
+        };
+
+        const response = await fetch(url, {
+          method: "GET",
+          headers: headers,
+          body: JSON.stringify(body),
+        });
+
         if (!response.ok) {
           throw new Error(response.status);
         }
@@ -27,6 +39,6 @@ export default function useApi(url) {
     }
 
     getData();
-  }, [url]);
+  }, [url, token, body]);
   return { data, isLoading, isError, errorMessage };
 }

@@ -5,7 +5,7 @@ export default function Footer() {
     <footer className="footer footer-center py-24 bg-[#0d1130] text-white">
       <aside>
         <p className="font-bold">
-          StayPlanner <br />
+          Holidaze <br />
           Where Every Stay is a Story
         </p>
         <p>Copyright © 2024 - All right reserved</p>

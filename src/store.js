@@ -32,10 +32,21 @@ export const useAuthStore = create(
       isAuthenticated: false,
       venueManager: false,
       token: "",
-      login: (token, venueManager) =>
-        set({ isAuthenticated: true, token, venueManager: venueManager }),
+      userName: "",
+      login: (token, venueManager, userName) =>
+        set({
+          isAuthenticated: true,
+          token,
+          venueManager: venueManager,
+          userName: userName,
+        }),
       logout: () => {
-        set({ isAuthenticated: false, token: "", venueManager: false });
+        set({
+          isAuthenticated: false,
+          token: "",
+          venueManager: false,
+          userName: "",
+        });
         // localStorage.removeItem("auth-storage");
       },
     }),
