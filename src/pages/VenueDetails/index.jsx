@@ -12,6 +12,7 @@ import LocalHotelIcon from "@mui/icons-material/LocalHotel";
 import PriceTag from "../../components/PriceTag";
 import DatePicker from "react-datepicker";
 import useApi from "../../hooks/useApi";
+import CarouselItem from "../../components/CarouselItem";
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -21,6 +22,17 @@ export default function VenueDetails() {
   const url = `${baseUrl}/venues/${id}`;
   const { data, isLoading, isError, errorMessage } = useApi(url);
   const [startDate, setStartDate] = useState(new Date());
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const nextImage = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % data.media.length);
+  };
+
+  const prevImage = () => {
+    setCurrentImageIndex(
+      (prevIndex) => (prevIndex - 1 + data.media.length) % data.media.length
+    );
+  };
 
   return (
     <>
@@ -44,15 +56,18 @@ export default function VenueDetails() {
           <Section>
             <div className="grid grid-cols-1 gap-4 mx-auto max-w-[800px]">
               {data && data.media && data.media.length > 0 ? (
-                data.media.map((image, index) => (
-                  <div className="sm:max-h-[500px] max-h-[300px]" key={index}>
-                    <img
-                      src={image || "/noimage.webp"}
-                      alt={data.name}
-                      className="object-cover h-full w-full"
+                <div className="carousel w-full max-h-[300px] sm:max-h-[500px]">
+                  {data.media.map((image, index) => (
+                    <CarouselItem
+                      image={data.media[currentImageIndex]}
+                      name={data.name}
+                      onNext={nextImage}
+                      onPrev={prevImage}
+                      key={index}
+                      length={data.media.length}
                     />
-                  </div>
-                ))
+                  ))}
+                </div>
               ) : (
                 <div className="sm:max-h-[500px] max-h-[300px]">
                   <img
