@@ -1,49 +1,85 @@
 import Section from "../../components/Section";
 import useApi from "../../hooks/useApi";
 import { useAuthStore } from "../../store";
+import { store } from "../../store";
 import { Link } from "react-router-dom";
+import Avatar from "../../components/Avatar";
+import Card from "../../components/Card";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 export default function Profile() {
-  const { userName, token, venueManager, isAuthenticated } = useAuthStore();
+  const { userName, token, isAuthenticated } = useAuthStore();
+  const { venues } = store();
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const url = `${baseUrl}/profiles/${userName}`;
 
   const { data } = useApi(url, token);
   console.log(data);
   return (
-    <Section>
+    <>
       {isAuthenticated ? (
-        <div className="max-w-[700px] flex-col sm:flex-row mx-auto justify-center">
-          <div className="max-w-[100px] h-[100px]">
-            {data.avatar ? (
-              <img className="object-cover w-full" src="" alt="avatar" />
+        <>
+          <Section>
+            <div className="flex flex-col md:flex-row text-center md:text-left mx-auto gap-6 pt-8 md:gap-12 max-w-[1000px] items-center">
+              <div className="flex justify-end">
+                {data.avatar ? (
+                  <Avatar image={data.avatar} />
+                ) : (
+                  <Avatar image={"./noimage.webp"} />
+                )}
+              </div>
+              <div>
+                <h1 className="text-center">{data.name}</h1>
+                <div className="flex items-center gap-2 pb-4 pt-2 justify-center md:justify-start">
+                  <AccountCircleIcon />
+                  <p className="font-bold">
+                    {data.venueManager ? "Venue manager" : "Customer"}
+                  </p>
+                </div>
+                <Link to={"/update-avatar"} className="btn">
+                  Update avatar
+                </Link>
+              </div>
+            </div>
+          </Section>
+          <Section>
+            {!data.venueManager ? (
+              <div>
+                <h2 className="text-center pb-12">Upcoming bookings</h2>
+                <div className="gap-4 grid mx-auto justify-center lg:grid-cols-3 md:grid-cols-2 max-w-7xl">
+                  {venues.map((venue) => (
+                    <Card
+                      image={venue.media[0]}
+                      title={venue.name}
+                      meta={venue.meta}
+                      price={venue.price}
+                      key={venue.id}
+                      id={venue.id}
+                    />
+                  ))}
+                </div>
+              </div>
             ) : (
-              <img
-                className="object-cover w-full"
-                src="./noimage.webp"
-                alt="avatars"
-              />
+              <div>Venuemanager</div>
             )}
-          </div>
-          <div>
-            <p>Name</p>
-            <p>Email</p>
-          </div>
-        </div>
+          </Section>
+        </>
       ) : (
-        <div className="mx-auto text-center py-20">
-          <h1 className="mb-8">You are not logged in</h1>
-          <p>
-            <Link to={"/login"} className="underline">
-              Login
-            </Link>
-            or
-            <Link to={"/register"} className="underline">
-              Register
-            </Link>
-          </p>
-        </div>
+        <Section>
+          <div className="mx-auto text-center py-20">
+            <h1 className="mb-8">You are not logged in</h1>
+            <p>
+              <Link to={"/login"} className="underline">
+                Login
+              </Link>
+              or
+              <Link to={"/register"} className="underline">
+                Register
+              </Link>
+            </p>
+          </div>
+        </Section>
       )}
-    </Section>
+    </>
   );
 }
