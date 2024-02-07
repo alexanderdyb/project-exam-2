@@ -42,9 +42,6 @@ export default function UpdateAvatar() {
 
   const onSubmit = (data) => {
     setPostData(data);
-    console.log("updatedData");
-    console.log(data);
-
     reset();
   };
 
