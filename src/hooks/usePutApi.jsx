@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
-import { useAuthStore } from "../store";
 
-export default function useAuth(url, body, token = null) {
+export default function usePutApi(url, body, token = null) {
+  const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
-  const { login } = useAuthStore();
 
   useEffect(() => {
     async function postData() {
@@ -22,7 +21,7 @@ export default function useAuth(url, body, token = null) {
         };
 
         const response = await fetch(url, {
-          method: "POST",
+          method: "PUT",
           headers: headers,
           body: JSON.stringify(body),
         });
@@ -45,11 +44,9 @@ export default function useAuth(url, body, token = null) {
             );
           }
         }
+
+        setData(responseData);
         setIsSuccess(true);
-        console.log(responseData);
-        const { accessToken, venueManager, name } = responseData;
-        const userName = name;
-        login(accessToken, venueManager, userName);
       } catch (error) {
         console.error("Error:", error);
         setIsError(true);
@@ -62,7 +59,7 @@ export default function useAuth(url, body, token = null) {
     if (url && body) {
       postData();
     }
-  }, [url, body, token, login]);
+  }, [url, body, token]);
 
-  return { isLoading, isError, errorMessage, isSuccess };
+  return { data, isLoading, isError, errorMessage, isSuccess };
 }

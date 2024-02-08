@@ -5,6 +5,8 @@ import RouteNotFound from "./pages/RouteNotFound";
 import VenueDetails from "./pages/VenueDetails";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Profile from "./pages/Profile";
+import UpdateAvatar from "./pages/UpdateAvatar";
 
 export default function App() {
   return (
@@ -15,6 +17,8 @@ export default function App() {
           <Route path="venue/:id" element={<VenueDetails />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/update-avatar" element={<UpdateAvatar />} />
           <Route path="*" element={<RouteNotFound />} />
         </Route>
       </Routes>

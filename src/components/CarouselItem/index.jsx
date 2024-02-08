@@ -1,5 +1,4 @@
 export default function CarouselItem({ image, name, onNext, onPrev, length }) {
-  console.log(length);
   return (
     <div className="carousel-item relative w-full">
       <img src={image} className="w-full object-cover" alt={name} />

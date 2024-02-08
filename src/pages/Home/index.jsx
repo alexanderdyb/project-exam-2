@@ -10,7 +10,6 @@ import SearchBar from "../../components/SearchBar/SearchBar";
 export default function Home() {
   const { venues, isLoading, isError, errorMessage, fetchVenues } = store();
   const url = `${process.env.REACT_APP_BASE_URL}/venues`;
-  console.log(venues);
 
   useEffect(() => {
     fetchVenues(url);
