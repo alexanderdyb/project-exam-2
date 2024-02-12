@@ -1,7 +1,6 @@
 import Section from "../../components/Section";
 import useApi from "../../hooks/useApi";
 import { useAuthStore } from "../../store";
-import { store } from "../../store";
 import { Link } from "react-router-dom";
 import Avatar from "../../components/Avatar";
 import Card from "../../components/Card";
@@ -9,9 +8,8 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 export default function Profile() {
   const { userName, token, isAuthenticated } = useAuthStore();
-  const { venues } = store();
   const baseUrl = process.env.REACT_APP_BASE_URL;
-  const url = `${baseUrl}/profiles/${userName}`;
+  const url = `${baseUrl}/profiles/${userName}?_bookings=true`;
 
   const { data } = useApi(url, token);
   console.log(data);
@@ -47,14 +45,15 @@ export default function Profile() {
               <div>
                 <h2 className="text-center pb-12">Upcoming bookings</h2>
                 <div className="gap-4 grid mx-auto justify-center lg:grid-cols-3 md:grid-cols-2 max-w-7xl">
-                  {venues.map((venue) => (
+                  {data.bookings?.map((item) => (
                     <Card
-                      image={venue.media[0]}
-                      title={venue.name}
-                      meta={venue.meta}
-                      price={venue.price}
-                      key={venue.id}
-                      id={venue.id}
+                      image={item.venue.media[0]}
+                      title={item.venue.name}
+                      meta={item.venue.meta}
+                      price={item.venue.price}
+                      guests={item.guests}
+                      key={item.id}
+                      id={item.venue.id}
                     />
                   ))}
                 </div>
