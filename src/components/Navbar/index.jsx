@@ -34,7 +34,7 @@ export default function Navbar() {
             </li>
           )}
           {isAuthenticated && (
-            <li>
+            <li className="z-10">
               <details>
                 <summary>Account</summary>
                 <ul className="p-2 bg-base-100 rounded-t-none">
