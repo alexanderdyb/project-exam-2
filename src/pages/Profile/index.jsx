@@ -9,7 +9,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 export default function Profile() {
   const { userName, token, isAuthenticated } = useAuthStore();
   const baseUrl = process.env.REACT_APP_BASE_URL;
-  const url = `${baseUrl}/profiles/${userName}?_bookings=true`;
+  const url = `${baseUrl}/profiles/${userName}?_bookings=true&_venues=true`;
 
   const { data } = useApi(url, token);
   console.log(data);
