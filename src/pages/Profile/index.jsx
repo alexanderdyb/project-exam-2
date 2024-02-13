@@ -5,14 +5,18 @@ import { Link } from "react-router-dom";
 import Avatar from "../../components/Avatar";
 import Card from "../../components/Card";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import formatDate from "../../hooks/useFormatDate";
 
 export default function Profile() {
-  const { userName, token, isAuthenticated } = useAuthStore();
+  const { userName, token, isAuthenticated, venueManager } = useAuthStore();
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const url = `${baseUrl}/profiles/${userName}?_bookings=true&_venues=true`;
 
   const { data } = useApi(url, token);
+
+  const currentDate = new Date().toISOString();
   console.log(data);
+
   return (
     <>
       {isAuthenticated ? (
@@ -34,32 +38,58 @@ export default function Profile() {
                     {data.venueManager ? "Venue manager" : "Customer"}
                   </p>
                 </div>
-                <Link to={"/update-avatar"} className="btn">
-                  Update avatar
-                </Link>
+                <div className="flex flex-col gap-4">
+                  <Link to={"/update-avatar"} className="btn">
+                    Update avatar
+                  </Link>
+                  {venueManager && (
+                    <Link to={"/create-venue"} className="btn">
+                      Create venue
+                    </Link>
+                  )}
+                </div>
               </div>
             </div>
           </Section>
           <Section>
-            {!data.venueManager ? (
+            {!venueManager ? (
               <div>
                 <h2 className="text-center pb-12">Upcoming bookings</h2>
                 <div className="gap-4 grid mx-auto justify-center lg:grid-cols-3 md:grid-cols-2 max-w-7xl">
-                  {data.bookings?.map((item) => (
+                  {data.bookings
+                    ?.filter((item) => item.dateFrom > currentDate)
+                    .sort((a, b) => new Date(a.dateFrom) - new Date(b.dateFrom))
+                    .map((item) => (
+                      <Card
+                        image={item.venue.media[0]}
+                        title={item.venue.name}
+                        headline="Booking info"
+                        meta={item.venue.meta}
+                        guests={item.guests}
+                        date={`${formatDate(item.dateFrom)} - ${formatDate(
+                          item.dateTo
+                        )}`}
+                        key={item.id}
+                        id={item.venue.id}
+                      />
+                    ))}
+                </div>
+              </div>
+            ) : (
+              <div>
+                {data.venue && <h2 className="text-center pb-12">My venues</h2>}
+                <div className="gap-4 grid mx-auto justify-center lg:grid-cols-3 md:grid-cols-2 max-w-7xl">
+                  {data.venues?.map((item) => (
                     <Card
-                      image={item.venue.media[0]}
-                      title={item.venue.name}
-                      meta={item.venue.meta}
-                      price={item.venue.price}
-                      guests={item.guests}
+                      image={item.media[0]}
+                      title={item.name}
+                      meta={item.meta}
                       key={item.id}
-                      id={item.venue.id}
+                      id={item.id}
                     />
                   ))}
                 </div>
               </div>
-            ) : (
-              <div>Venuemanager</div>
             )}
           </Section>
         </>
