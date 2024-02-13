@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import Loading from "../../components/Loading";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Section from "../../components/Section";
 import Message from "../../components/Message";
 import WifiIcon from "@mui/icons-material/Wifi";
@@ -13,16 +13,20 @@ import PriceTag from "../../components/PriceTag";
 import DatePicker from "react-datepicker";
 import useApi from "../../hooks/useApi";
 import CarouselItem from "../../components/CarouselItem";
+import { useAuthStore } from "../../store";
+import { Link } from "react-router-dom";
 
 import "react-datepicker/dist/react-datepicker.css";
 
 export default function VenueDetails() {
   let { id } = useParams();
   const baseUrl = process.env.REACT_APP_BASE_URL;
-  const url = `${baseUrl}/venues/${id}`;
+  const url = `${baseUrl}/venues/${id}?_bookings=true`;
   const { data, isLoading, isError, errorMessage } = useApi(url);
   const [startDate, setStartDate] = useState(new Date());
+  const [excludedDates, setExcludedDates] = useState([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const { isAuthenticated } = useAuthStore();
 
   const nextImage = () => {
     setCurrentImageIndex((prevIndex) => (prevIndex + 1) % data.media.length);
@@ -33,6 +37,25 @@ export default function VenueDetails() {
       (prevIndex) => (prevIndex - 1 + data.media.length) % data.media.length
     );
   };
+
+  useEffect(() => {
+    if (data && data.bookings) {
+      const datesToExclude = [];
+      data.bookings.forEach((booking) => {
+        let currentDate = new Date(booking.dateFrom);
+        const endDate = new Date(booking.dateTo);
+
+        while (currentDate <= endDate) {
+          datesToExclude.push(new Date(currentDate));
+          currentDate.setDate(currentDate.getDate() + 1);
+        }
+      });
+
+      setExcludedDates(datesToExclude);
+    }
+  }, [data]);
+
+  console.log(data.bookings);
 
   return (
     <>
@@ -158,13 +181,42 @@ export default function VenueDetails() {
             </div>
           </Section>
           <Section background={"#f5f5f5"}>
-            <div className="max-w-[800px]">
-              <h2 className="text-center mx-auto">Book your stay</h2>
+            <div className="max-w-[800px] mx-auto text-center">
+              <h2 className="text-center mx-auto mb-8">Available dates</h2>
+              {data && (
+                <DatePicker
+                  selected={startDate}
+                  onChange={(date) => setStartDate(date)}
+                  excludeDates={excludedDates}
+                  dateFormat="yyyy/MM/dd"
+                  inline
+                />
+              )}
             </div>
-            <DatePicker
-              selected={startDate}
-              onChange={(date) => setStartDate(date)}
-            />
+            {isAuthenticated ? (
+              <div className="mx-auto text-center pt-12 font-semibold">
+                <Link
+                  to={`/booking/${id}`}
+                  className="btn bg-[#0D1130] text-white hover:text-white hover:bg-[#0D1130]"
+                >
+                  Book now
+                </Link>
+              </div>
+            ) : (
+              <div>
+                <p className="text-center pt-6">
+                  <Link to={"/login"} className="underline">
+                    Login
+                  </Link>{" "}
+                  or{" "}
+                  <Link to={"/register"} className="underline">
+                    {" "}
+                    Register
+                  </Link>{" "}
+                  to book this venue
+                </p>
+              </div>
+            )}
           </Section>
         </>
       )}

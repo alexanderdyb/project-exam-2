@@ -2,7 +2,16 @@ import { Link } from "react-router-dom";
 import Tag from "../Tag";
 import PriceTag from "../PriceTag";
 
-export default function Card({ image, title, id, meta, price }) {
+export default function Card({
+  image,
+  title,
+  headline,
+  id,
+  meta,
+  price,
+  date,
+  guests,
+}) {
   return (
     <div className="card max-w-96 bg-base-100 shadow-xl">
       <figure className="max-h-48">
@@ -18,7 +27,10 @@ export default function Card({ image, title, id, meta, price }) {
       </figure>
       <div className="card-body bg-white">
         <h2 className="card-title">{title}</h2>
-        <PriceTag price={price} />
+        {headline && <p className="font-bold">{headline}</p>}
+        {price && <PriceTag price={price} />}
+        {date && <p className="text-sm">{date}</p>}
+        {guests && <p className="text-sm">{`Number of guests: ${guests}`}</p>}
         <div className="card-actions mt-2">
           <div className="card-actions justify-end mb-2">
             {meta.breakfast && <Tag title="Breakfast" />}
