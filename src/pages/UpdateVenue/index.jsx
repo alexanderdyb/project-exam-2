@@ -142,7 +142,6 @@ export default function UpdateVenue() {
 
   const onSubmit = (data) => {
     setPostData(data);
-    reset();
   };
 
   return (
