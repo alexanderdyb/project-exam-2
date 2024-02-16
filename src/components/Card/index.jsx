@@ -1,6 +1,8 @@
-import { Link } from "react-router-dom";
 import Tag from "../Tag";
 import PriceTag from "../PriceTag";
+import LinkButton from "../LinkButton";
+import Button from "../Button";
+import { useAuthStore } from "../../store";
 
 export default function Card({
   image,
@@ -11,7 +13,11 @@ export default function Card({
   price,
   date,
   guests,
+  buttonText,
+  linkButtonText,
+  linkButtonUrl,
 }) {
+  const { isAuthenticated, venueManager } = useAuthStore();
   return (
     <div className="card max-w-96 bg-base-100 shadow-xl">
       <figure className="max-h-48">
@@ -38,12 +44,15 @@ export default function Card({
             {meta.pets && <Tag title="Pets" />}
             {meta.wifi && <Tag title="Wifi" />}
           </div>
-          <Link
-            to={`/venue/${id}`}
-            className="bg-[#0D1130] text-white w-full text-center py-2 border rounded-2xl"
-          >
-            View more
-          </Link>
+          <LinkButton text={"View more"} url={`/venue/${id}`} />
+          {isAuthenticated && venueManager && (
+            <>
+              {linkButtonText && linkButtonUrl && (
+                <LinkButton text={linkButtonText} url={linkButtonUrl} />
+              )}
+              {buttonText && <Button text={buttonText} />}
+            </>
+          )}
         </div>
       </div>
     </div>

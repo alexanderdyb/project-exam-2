@@ -77,7 +77,9 @@ export default function Profile() {
               </div>
             ) : (
               <div>
-                {data.venue && <h2 className="text-center pb-12">My venues</h2>}
+                {data.venues && (
+                  <h2 className="text-center pb-12">My venues</h2>
+                )}
                 <div className="gap-4 grid mx-auto justify-center lg:grid-cols-3 md:grid-cols-2 max-w-7xl">
                   {data.venues?.map((item) => (
                     <Card
@@ -86,6 +88,8 @@ export default function Profile() {
                       meta={item.meta}
                       key={item.id}
                       id={item.id}
+                      linkButtonText={"Update"}
+                      linkButtonUrl={`/venue/update/${item.id}`}
                     />
                   ))}
                 </div>

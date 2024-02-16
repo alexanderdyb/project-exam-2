@@ -9,6 +9,7 @@ import Profile from "./pages/Profile";
 import UpdateAvatar from "./pages/UpdateAvatar";
 import Booking from "./pages/Booking";
 import CreateVenue from "./pages/CreateVenue";
+import UpdateVenue from "./pages/UpdateVenue";
 
 export default function App() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/create-venue" element={<CreateVenue />} />
           <Route path="/update-avatar" element={<UpdateAvatar />} />
+          <Route path="venue/update/:id" element={<UpdateVenue />} />
           <Route path="*" element={<RouteNotFound />} />
         </Route>
       </Routes>
