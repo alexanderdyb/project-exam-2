@@ -11,6 +11,7 @@ import DialogModal from "../../components/DialogModal";
 import { useState, useEffect } from "react";
 import Loading from "../../components/Loading";
 import Message from "../../components/Message";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 export default function Profile() {
   const [dataVersion, setDataVersion] = useState(0);
@@ -124,6 +125,23 @@ export default function Profile() {
                   </div>
                 ) : (
                   <div>
+                    <div className="max-w-7xl  mx-auto text-center sm:text-left">
+                      <h3 className="pb-8">Bookings</h3>
+                      {data.venues?.map((item) => (
+                        <div
+                          key={item.id}
+                          className="flex items-center pb-4 justify-center sm:justify-start"
+                        >
+                          <Link
+                            to={`/venue/bookings/${item.id}`}
+                            className="font-semibold"
+                          >
+                            {item.name}
+                          </Link>
+                          <ArrowForwardIosIcon />
+                        </div>
+                      ))}
+                    </div>
                     {data.venues && (
                       <h2 className="text-center pb-12">My venues</h2>
                     )}
@@ -158,11 +176,6 @@ export default function Profile() {
                     />
                   </div>
                 )}
-              </Section>
-              <Section>
-                <div>
-                  <h2 className="text-center">Bookings</h2>
-                </div>
               </Section>
             </>
           )}
