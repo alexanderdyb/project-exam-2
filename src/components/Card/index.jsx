@@ -16,6 +16,7 @@ export default function Card({
   buttonText,
   linkButtonText,
   linkButtonUrl,
+  onClick,
 }) {
   const { isAuthenticated, venueManager } = useAuthStore();
   return (
@@ -50,7 +51,7 @@ export default function Card({
               {linkButtonText && linkButtonUrl && (
                 <LinkButton text={linkButtonText} url={linkButtonUrl} />
               )}
-              {buttonText && <Button text={buttonText} />}
+              {buttonText && <Button text={buttonText} onClick={onClick} />}
             </>
           )}
         </div>

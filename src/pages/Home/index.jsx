@@ -26,8 +26,10 @@ export default function Home() {
         buttonName="Register Now"
         alt="Cabin out in the woods"
       />
-      <div className="max-w-7xl mx-auto pt-12 px-4 text-center md:text-left mb-[-30px]">
-        <SearchBar />
+      <div className="bg-[#fff]">
+        <div className="max-w-7xl mx-auto pt-12 px-4 text-center md:text-left mb-[-30px]">
+          <SearchBar />
+        </div>
       </div>
 
       {isLoading ? (
@@ -38,7 +40,7 @@ export default function Home() {
         </Section>
       ) : isError ? (
         <Section>
-          <div className="max-w-[500px] mx-auto">
+          <div className="max-w-[500px] mx-auto ">
             <Message
               text={`${errorMessage} Error fetching data. Please try again later.`}
               type={"error"}
