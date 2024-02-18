@@ -28,6 +28,8 @@ export default function Profile() {
   const { data, isLoading, isError, errorMessage } = useApi(url, token);
   const currentDate = new Date().toISOString();
 
+  console.log(data);
+
   const handleVenueId = (itemId) => {
     setSelectedItemId(itemId);
   };
@@ -156,6 +158,11 @@ export default function Profile() {
                     />
                   </div>
                 )}
+              </Section>
+              <Section>
+                <div>
+                  <h2 className="text-center">Bookings</h2>
+                </div>
               </Section>
             </>
           )}
