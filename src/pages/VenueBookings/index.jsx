@@ -39,8 +39,8 @@ export default function VenueBookings() {
             {isAuthenticated && venueManager ? (
               <div>
                 <h1 className="text-center">{`All bookings for ${data.name}`}</h1>
-                <h2 className="text-center pt-8">List</h2>
-                <div className="max-w-[1000px] mx-auto pt-12">
+                <h2 className="text-center pt-8 mb-8">List</h2>
+                <div className="max-w-[1000px] mx-auto">
                   <Table data={data.bookings} />
                 </div>
               </div>

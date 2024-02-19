@@ -1,30 +1,36 @@
+import formatDate from "../../hooks/useFormatDate";
+
 export default function Table({ data }) {
   return (
-    <div>
-      <table className="table">
-        {/* head */}
-        <thead>
-          <tr className="text-black text-base">
-            <th>Created</th>
-            <th>Date from - Date to</th>
-            <th>Guests</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data?.map((item) => {
-            return (
-              <tr key={item.id} className="text-base">
-                {" "}
-                {/* Make sure to add a unique key prop */}
-                <td>{item.created}</td>
-                <td>{`${item.dateFrom} - ${item.dateTo}`}</td>{" "}
-                {/* Assuming you have a dateTo field */}
-                <td>{item.guests}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+    <div className="">
+      {data?.map((item, index) => {
+        return (
+          <div>
+            <h3 className="pt-4 text-lg">Booking {index + 1}</h3>
+            <div
+              key={item.id}
+              className="text-base grid lg:grid-cols-4 sm:grid-cols-2 justify-between mx-auto border-b-2 pb-4 border-[#0d1130]"
+            >
+              <div>
+                <p className="font-bold">Created</p>
+                <p>{formatDate(item.created)}</p>
+              </div>
+              <div>
+                <p className="font-bold">Date from</p>
+                <p>{formatDate(item.dateFrom)}</p>
+              </div>
+              <div>
+                <p className="font-bold">Date to</p>
+                <p>{formatDate(item.dateTo)}</p>
+              </div>
+              <div>
+                <p className="font-bold">Guests</p>
+                <p>{item.guests}</p>
+              </div>
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }
