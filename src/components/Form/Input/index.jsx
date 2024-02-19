@@ -4,7 +4,7 @@ const Input = React.forwardRef(({ label, placeholder, ...props }, ref) => {
   return (
     <label className="form-control w-full">
       <div className="label">
-        <span className="label-text">{label}</span>
+        <span className="label-text text-base">{label}</span>
       </div>
       <input
         ref={ref}

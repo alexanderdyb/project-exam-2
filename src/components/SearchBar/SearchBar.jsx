@@ -29,7 +29,7 @@ export default function SearchBar() {
         </div>
         <input
           type="text"
-          placeholder="E.g., 'Wooden cabin'"
+          placeholder="E.g., 'Cabin in the woods'"
           className="input input-bordered w-full max-w-xs bg-white"
           onChange={handleFilter}
         />

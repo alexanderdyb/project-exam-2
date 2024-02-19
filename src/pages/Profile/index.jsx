@@ -124,7 +124,7 @@ export default function Profile() {
                 ) : (
                   <div>
                     <div className="max-w-7xl  mx-auto text-center sm:text-left">
-                      <h3 className="pb-8">Bookings</h3>
+                      <h3 className="pb-8">Bookings at my venues</h3>
                       {data.venues?.map((item) => (
                         <div
                           key={item.id}

@@ -47,7 +47,6 @@ export const useAuthStore = create(
           venueManager: false,
           userName: "",
         });
-        // localStorage.removeItem("auth-storage");
       },
     }),
     {

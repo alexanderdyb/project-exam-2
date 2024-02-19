@@ -4,7 +4,7 @@ const Textarea = React.forwardRef(({ label, placeholder, ...props }, ref) => {
   return (
     <label className="form-control">
       <div className="label">
-        <span className="label-text">{label}</span>
+        <span className="label-text text-base">{label}</span>
       </div>
       <textarea
         ref={ref}
