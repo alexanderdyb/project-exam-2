@@ -14,8 +14,6 @@ export default function VenueBookings() {
   const { data, isLoading, isError, errorMessage } = useApi(url);
   const { isAuthenticated, venueManager } = useAuthStore();
 
-  console.log(data);
-
   return (
     <>
       {isLoading ? (

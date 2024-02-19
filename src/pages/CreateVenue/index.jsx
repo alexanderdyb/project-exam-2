@@ -106,7 +106,6 @@ export default function CreateVenue() {
   );
 
   const onSubmit = (data) => {
-    console.log(data);
     setPostData(data);
     reset();
   };

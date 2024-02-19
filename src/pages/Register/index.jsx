@@ -60,7 +60,6 @@ export default function Register() {
   );
 
   const onSubmit = (data) => {
-    console.log(data);
     setPostData(data);
     reset();
   };

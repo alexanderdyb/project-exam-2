@@ -55,8 +55,6 @@ export default function VenueDetails() {
     }
   }, [data]);
 
-  console.log(data.bookings);
-
   return (
     <>
       {isLoading ? (

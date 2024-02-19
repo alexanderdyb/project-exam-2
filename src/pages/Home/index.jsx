@@ -15,8 +15,6 @@ export default function Home() {
     fetchVenues(url);
   }, [fetchVenues, url]);
 
-  console.log(venues);
-
   return (
     <>
       <Hero
