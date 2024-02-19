@@ -23,7 +23,6 @@ const schema = yup
 export default function Booking() {
   let { id } = useParams();
   const { isAuthenticated, token } = useAuthStore();
-  console.log(id);
 
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const [postData, setPostData] = useState(null);
@@ -43,7 +42,6 @@ export default function Booking() {
   );
 
   const onSubmit = (data) => {
-    console.log(data);
     const dataWithVenueId = { ...data, venueId: id };
     setPostData(dataWithVenueId);
     reset();
@@ -61,21 +59,21 @@ export default function Booking() {
               {...register("dateFrom")}
               label={"From"}
             />
-            <p>{errors.dateFrom?.message}</p>
+            <p className="text-red-500 pt-2">{errors.dateFrom?.message}</p>
             <Input
               name="dateTo"
               type="date"
               {...register("dateTo")}
               label={"To"}
             />
-            <p>{errors.dateTo?.message}</p>
+            <p className="text-red-500 pt-2">{errors.dateTo?.message}</p>
             <Input
               name="guests"
               type="number"
               {...register("guests")}
               label={"Guests"}
             />
-            <p>{errors.guests?.message}</p>
+            <p className="text-red-500 pt-2">{errors.guests?.message}</p>
             <button type="submit" className="btn bg-white text-[#161616] mt-6">
               Book
             </button>

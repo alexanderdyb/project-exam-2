@@ -106,7 +106,6 @@ export default function CreateVenue() {
   );
 
   const onSubmit = (data) => {
-    console.log(data);
     setPostData(data);
     reset();
   };
@@ -118,13 +117,17 @@ export default function CreateVenue() {
           <h1 className="mb-4">Create venue</h1>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <Input name="name" label="Name *" {...register("name")} />
-            {errors.name && <p>{errors.name.message}</p>}
+            {errors.name && (
+              <p className="text-red-500 pt-2">{errors.name.message}</p>
+            )}
             <Textarea
               name="description"
               label="Description *"
               {...register("description")}
             />
-            {errors.description && <p>{errors.description.message}</p>}
+            {errors.description && (
+              <p className="text-red-500 pt-2">{errors.description.message}</p>
+            )}
             <h3>Media URLs</h3>
             {fields.map((item, index) => (
               <div key={item.id}>
@@ -147,21 +150,27 @@ export default function CreateVenue() {
             <button type="button" className="btn" onClick={() => append("")}>
               Add Media URL
             </button>
-            {errors.media && <p>{errors.media.message}</p>}
+            {errors.media && (
+              <p className="text-red-500 pt-2">{errors.media.message}</p>
+            )}
             <Input
               name="price"
               label="Price *"
               type="number"
               {...register("price")}
             />
-            {errors.price && <p>{errors.price.message}</p>}
+            {errors.price && (
+              <p className="text-red-500 pt-2">{errors.price.message}</p>
+            )}
             <Input
               name="maxGuests"
               label="Max Guests *"
               type="number"
               {...register("maxGuests")}
             />
-            {errors.maxGuests && <p>{errors.maxGuests.message}</p>}
+            {errors.maxGuests && (
+              <p className="text-red-500 pt-2">{errors.maxGuests.message}</p>
+            )}
             <Input
               name="rating"
               label="Rating"

@@ -26,7 +26,7 @@ export default function VenueDetails() {
   const [startDate, setStartDate] = useState(new Date());
   const [excludedDates, setExcludedDates] = useState([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const { isAuthenticated } = useAuthStore();
+  const { isAuthenticated, venueManager } = useAuthStore();
 
   const nextImage = () => {
     setCurrentImageIndex((prevIndex) => (prevIndex + 1) % data.media.length);
@@ -54,8 +54,6 @@ export default function VenueDetails() {
       setExcludedDates(datesToExclude);
     }
   }, [data]);
-
-  console.log(data.bookings);
 
   return (
     <>
@@ -193,7 +191,7 @@ export default function VenueDetails() {
                 />
               )}
             </div>
-            {isAuthenticated ? (
+            {isAuthenticated && !venueManager ? (
               <div className="mx-auto text-center pt-12 font-semibold">
                 <Link
                   to={`/booking/${id}`}
@@ -211,9 +209,9 @@ export default function VenueDetails() {
                   or{" "}
                   <Link to={"/register"} className="underline">
                     {" "}
-                    Register
+                    register
                   </Link>{" "}
-                  to book this venue
+                  as customer to book this venue
                 </p>
               </div>
             )}

@@ -60,7 +60,6 @@ export default function Register() {
   );
 
   const onSubmit = (data) => {
-    console.log(data);
     setPostData(data);
     reset();
   };
@@ -77,7 +76,7 @@ export default function Register() {
             label={"Name"}
             placeholder={"my_username"}
           />
-          <p>{errors.name?.message}</p>
+          <p className="text-red-500 pt-2">{errors.name?.message}</p>
           <Input
             name="email"
             type="text"
@@ -85,7 +84,7 @@ export default function Register() {
             label={"Email"}
             placeholder={"first.last@stud.noroff.no"}
           />
-          <p>{errors.email?.message}</p>
+          <p className="text-red-500 pt-2">{errors.email?.message}</p>
           <Input
             name="password"
             type="password"
@@ -93,7 +92,7 @@ export default function Register() {
             label={"Password"}
             placeholder={"Password"}
           />
-          <p>{errors.password?.message}</p>
+          <p className="text-red-500 pt-2">{errors.password?.message}</p>
           <Input
             name="avatar"
             type="text"
@@ -101,7 +100,7 @@ export default function Register() {
             label={"Avatar"}
             placeholder={"https://img.service.com/avatar.jpg"}
           />
-          <p>{errors.avatar?.message}</p>
+          <p className="text-red-500 pt-2">{errors.avatar?.message}</p>
           <Toggle
             name="venueManager"
             label="Register as Venue Manager"

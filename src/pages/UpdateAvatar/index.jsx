@@ -63,7 +63,7 @@ export default function UpdateAvatar() {
             label={"Avatar"}
             placeholder={"https://img.service.com/avatar.jpg"}
           />
-          <p>{errors.avatar?.message}</p>
+          <p className="text-red-500 pt-2">{errors.avatar?.message}</p>
           <button type="submit" className="btn bg-white text-[#161616] mt-4">
             Update avatar
           </button>

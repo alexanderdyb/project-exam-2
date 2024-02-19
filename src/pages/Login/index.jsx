@@ -62,7 +62,7 @@ export default function Login() {
             label={"Email"}
             placeholder={"first.last@stud.noroff.no"}
           />
-          <p>{errors.email?.message}</p>
+          <p className="text-red-500 pt-2">{errors.email?.message}</p>
           <Input
             name="password"
             type="password"
@@ -70,7 +70,7 @@ export default function Login() {
             label={"Password"}
             placeholder={"Password"}
           />
-          <p>{errors.password?.message}</p>
+          <p className="text-red-500 pt-2">{errors.password?.message}</p>
           <button type="submit" className="btn bg-white text-[#161616] mt-4">
             Login
           </button>
