@@ -1,51 +1,51 @@
-# Holidaze Booking Site
+# Project Exam 2: Holidaze Booking Site
 
-## Project overview
+## Description
 
-Holidaze is an extensive project developed to showcase a range of development skills, visual and technical capabilities. The project aims to provide a modern front-end accommodation booking application for a newly launched site named Holidaze. It encompasses both a customer-facing side for booking holidays at various venues and an admin-facing side for venue and booking management.
+Holidaze is an extensive project developed to showcase a range of development skills, visual and technical capabilities. The project aims to provide a modern front-end accommodation booking application for a newly launched site named Holidaze. It encompasses both a customer-facing side for booking holidays at various venues and an admin-facing side for venue and booking management
 
-## Brief
+## Features
 
-The project brief entails the development of a brand-new front end for the Holidaze accommodation booking application. While Holidaze provided a list of required features, the design and user experience were left unspecified, offering a unique opportunity to innovate in planning, designing, and building the application.
+- Explore Venues: Users can browse a list of available venues
+- Venue Search: With a search functionality, users can quickly find venues 
+- Venue Details: By selecting a venue, users can access detailed information, including a calendar of available dates, to plan their bookings accordingly.
+- User Registration: Individuals with a stud.noroff.no email can register as either a customer or venue manager, unlocking additional functionalities based on their role.
+- Login/Logout: Login and logout capabilities for registered users
+- Profile Customization: Users can update their avatar, personalizing their profile within the app.
+- Booking Creation: Registered customers can effortlessly create bookings at their venue of choice
+- View Upcoming Bookings: Customers have access to a dashboard where they can view all their upcoming bookings
+- Venue Management: Registered venue managers can create, update, and delete venues, giving them full control over the information presented to potential customers.
+- Booking Oversight: Managers have the ability to view all bookings for the venues they manage
 
-## Technologies Used
+## Built With
 
-- React
-- TailwindCSS for styling
+- [React](https://react.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
 
-## Available Scripts
+## Getting Started
 
-In the project directory, you can run:
+### Installing
 
-### `npm start`
+1. Clone the repo:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```bash
+git clone git@github.com:alexanderdyb/project-exam-2.git
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+2. Install the dependencies:
 
-### `npm test`
+```
+npm install
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Running
 
-### `npm run build`
+To run the app, run the following commands:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+npm run start
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Contact
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+[My LinkedIn page](https://www.linkedin.com/in/alexander-dyb-2171708a/)
